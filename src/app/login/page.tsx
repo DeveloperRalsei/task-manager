@@ -1,13 +1,4 @@
-import {
-    Button,
-    Divider,
-    Paper,
-    PasswordInput,
-    Stack,
-    TextInput,
-} from "@mantine/core";
-import { signIn } from "next-auth/react";
-import { IconBrandGithub } from "@tabler/icons-react";
+import { Divider, Paper, Stack } from "@mantine/core";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { authOptions } from "../api/auth/[...nextauth]/route";

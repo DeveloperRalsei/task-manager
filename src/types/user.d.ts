@@ -1,7 +1,7 @@
-import { User } from "next-auth";
+import { DefaultUser } from "next-auth";
 
 declare module "next-auth" {
-    interface User {
+    interface User extends DefaultUser {
         password?: string;
     }
 }

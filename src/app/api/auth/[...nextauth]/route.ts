@@ -27,8 +27,16 @@ export const authOptions = {
         }),
 
         Github({
-            clientId: process.env.GITHUB_CLIENTID ?? "",
-            clientSecret: process.env.GITHUB_SECRET ?? "",
+            clientId:
+                process.env.GITHUB_CLIENTID ||
+                (function () {
+                    throw new Error("GITHUB_CLIENTID is not set");
+                })(),
+            clientSecret:
+                process.env.GITHUB_SECRET ||
+                (function () {
+                    throw new Error("GITHUB_SECRET is not set");
+                })(),
         }),
     ],
 };
