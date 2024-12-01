@@ -6,3 +6,10 @@ export type User = {
     role: "admin" | "user";
     hasPermissions?: Permision[];
 };
+
+export type navLink = {
+    label: string;
+    href?: string;
+    icon?: React.ReactNode;
+    children?: navLink[];
+};

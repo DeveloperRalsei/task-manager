@@ -1,1 +1,2 @@
-export * from "./context/SessionProvider";
+export * from "./context/SessionContext";
+export * from "./context/NavbarContext";

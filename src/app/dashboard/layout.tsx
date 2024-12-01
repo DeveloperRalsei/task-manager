@@ -5,7 +5,6 @@ import {
     AppShellNavbar,
     AppShellSection,
     ScrollArea,
-    Skeleton,
     Group,
     Avatar,
     Menu,
@@ -18,12 +17,17 @@ import {
     Text,
     MenuDivider,
     ActionIcon,
+    NavLink,
+    Title,
 } from "@mantine/core";
 import { IconSettings } from "@tabler/icons-react";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { authOptions } from "../api/auth/[...nextauth]/route";
-import { LogOutButton } from "./(layoutComponents)/Buttons";
+import { LogOutButton, NavbarToggleButton } from "./(layoutComponents)/Buttons";
+import Link from "next/link";
+import { NavLinks } from "@/data";
+import { useNavbarContext } from "@/components";
 
 export default async function Dashboard({
     children,
@@ -36,29 +40,60 @@ export default async function Dashboard({
         redirect("/login");
     }
 
+    // const { isOpen } = useNavbarContext();
+
     return (
         <AppShell
             navbar={{
                 width: 250,
                 breakpoint: "sm",
+                collapsed: { desktop: false, mobile: false },
             }}
             header={{
                 height: 70,
             }}>
-            <AppShellHeader>header</AppShellHeader>
-            <AppShellNavbar p="md">
+            <AppShellHeader>
+                <Group h={"100%"}>
+                    <Group px={"sm"} w={"100%"} justify="space-between">
+                        <Group>
+                            <NavbarToggleButton />
+                            <Title order={4}>Task Manager</Title>
+                        </Group>
+                    </Group>
+                </Group>
+            </AppShellHeader>
+            <AppShellNavbar>
                 <AppShellSection grow component={ScrollArea}>
-                    60 links in a scrollable section
-                    {Array(60)
-                        .fill(0)
-                        .map((_, index) => (
-                            <Skeleton
-                                key={index}
-                                h={28}
-                                mt="sm"
-                                animate={false}
-                            />
-                        ))}
+                    {NavLinks.map((link, i) => {
+                        if ("children" in link) {
+                            return (
+                                <NavLink
+                                    key={link.label + i}
+                                    label={link.label}
+                                    leftSection={link.icon}>
+                                    {link.children?.map((child, i) => (
+                                        <NavLink
+                                            key={child.label + i}
+                                            label={child.label}
+                                            leftSection={child.icon}
+                                            component={Link}
+                                            href={child.href || ""}
+                                        />
+                                    ))}
+                                </NavLink>
+                            );
+                        } else {
+                            return (
+                                <NavLink
+                                    leftSection={link.icon}
+                                    component={Link}
+                                    href={link.href || ""}
+                                    key={link.label + i}
+                                    label={link.label}
+                                />
+                            );
+                        }
+                    })}
                 </AppShellSection>
                 <AppShellSection
                     h={100}

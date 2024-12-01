@@ -1,46 +1,62 @@
-import NextAuth from "next-auth";
+import { prisma } from "@/lib/prisma";
+import NextAuth, { AuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import Github from "next-auth/providers/github";
+import bcrypt from "bcrypt";
+import { User } from "@/types/data";
 
-export const authOptions = {
+export const authOptions: AuthOptions = {
     providers: [
+        Github({
+            clientId: process.env.GITHUB_CLIENTID ?? "",
+            clientSecret: process.env.GITHUB_SECRET ?? "",
+        }),
+
         Credentials({
             credentials: {
-                email: { label: "E-Mail", type: "Email" },
+                email: {
+                    label: "Email",
+                    type: "email",
+                    placeholder: "example@example.net",
+                },
                 password: { label: "Password", type: "password" },
             },
-            authorize(credentials) {
+            authorize: async (credentials) => {
                 if (!credentials) return null;
 
-                const { email, password } = credentials;
+                try {
+                    const user = await prisma.user.findUnique({
+                        where: {
+                            email: credentials.email,
+                        },
+                    });
 
-                if (email !== "admin@test.com" || password !== "1234") {
+                    if (!user) return null;
+
+                    const validUser = await bcrypt.compare(
+                        credentials.password,
+                        user.password
+                    );
+
+                    if (validUser)
+                        return {
+                            ...user,
+                            role: user.role as User["role"],
+                        };
+
                     return null;
+                } catch (error) {
+                    throw error;
                 }
-
-                return {
-                    id: "1",
-                    email: "admin@test.com",
-                    name: "Rıza | Admin",
-                };
             },
         }),
-
-        Github({
-            clientId:
-                process.env.GITHUB_CLIENTID ||
-                (function () {
-                    throw new Error("GITHUB_CLIENTID is not set");
-                })(),
-            clientSecret:
-                process.env.GITHUB_SECRET ||
-                (function () {
-                    throw new Error("GITHUB_SECRET is not set");
-                })(),
-        }),
     ],
+
+    pages: {
+        signIn: "/login",
+    },
 };
 
 const handler = NextAuth(authOptions);
 
-export { handler as GET, handler as POST };
+export { handler as POST, handler as GET };

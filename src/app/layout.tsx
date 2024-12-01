@@ -8,7 +8,8 @@ import "@mantine/nprogress/styles.css";
 import { Notifications } from "@mantine/notifications";
 import { NavigationProgress } from "@mantine/nprogress";
 import { getServerSession } from "next-auth";
-import SessionProvider from "@/components/context/SessionProvider";
+import SessionProvider from "@/components/context/SessionContext";
+import { NavbarProvider } from "@/components";
 
 export default async function RootLayout({
     children,
@@ -24,11 +25,13 @@ export default async function RootLayout({
             </head>
             <body cz-shortcut-listen="true">
                 <SessionProvider session={session}>
-                    <MantineProvider theme={theme}>
-                        <Notifications />
-                        <NavigationProgress />
-                        {children}
-                    </MantineProvider>
+                    <NavbarProvider>
+                        <MantineProvider theme={theme}>
+                            <Notifications />
+                            <NavigationProgress />
+                            {children}
+                        </MantineProvider>
+                    </NavbarProvider>
                 </SessionProvider>
             </body>
         </html>
