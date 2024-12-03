@@ -1,5 +1,11 @@
 import { navLink } from "@/types/data";
-import { IconPlus, IconUser, IconUsers, IconX } from "@tabler/icons-react";
+import {
+    IconBook,
+    IconPlus,
+    IconUser,
+    IconUsers,
+    IconX,
+} from "@tabler/icons-react";
 
 export const NavLinks: navLink[] = [
     {
@@ -26,6 +32,7 @@ export const NavLinks: navLink[] = [
     {
         label: "Projects",
         href: "/dashboard/projects",
+        icon: <IconBook />,
     },
     {
         label: "Settings",
