@@ -2,8 +2,6 @@ import { Breadcrumbs } from "@/components/BreadCrumbs";
 import { getGithubProjects } from "@/lib/projects";
 import { wait } from "@/lib/utils";
 import {
-    Container,
-    Stack,
     Table,
     TableTbody,
     TableTd,

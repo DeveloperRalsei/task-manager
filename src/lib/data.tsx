@@ -1,11 +1,5 @@
 import { navLink } from "@/types/data";
-import {
-    IconBook,
-    IconPlus,
-    IconUser,
-    IconUsers,
-    IconX,
-} from "@tabler/icons-react";
+import { IconPlus, IconUser, IconUsers, IconX } from "@tabler/icons-react";
 
 export const NavLinks: navLink[] = [
     {

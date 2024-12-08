@@ -1,8 +1,4 @@
-import {
-    Button,
-    Breadcrumbs as MantineBreadcrumbs,
-    Title,
-} from "@mantine/core";
+import { Button, Breadcrumbs as MantineBreadcrumbs } from "@mantine/core";
 import { IconArrowRight } from "@tabler/icons-react";
 import Link from "next/link";
 

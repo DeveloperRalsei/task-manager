@@ -1,6 +1,6 @@
 "use client";
 
-import { ActionIcon, Burger } from "@mantine/core";
+import { ActionIcon } from "@mantine/core";
 import { IconLogout } from "@tabler/icons-react";
 import { signOut } from "next-auth/react";
 
