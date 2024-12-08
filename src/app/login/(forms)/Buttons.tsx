@@ -1,17 +1,23 @@
 "use client";
 
-import { Button } from "@mantine/core";
+import { Button, Paper } from "@mantine/core";
 import { IconBrandGithub } from "@tabler/icons-react";
 import { signIn } from "next-auth/react";
 
 export function GithubLoginButton() {
     return (
-        <Button
-            onClick={() => signIn("github", { callbackUrl: "/dashboard" })}
-            tw="700"
-            rightSection={<IconBrandGithub />}
-            type="submit">
-            Github
-        </Button>
+        <Paper withBorder p={"md"}>
+            <Button
+                size="xl"
+                rightSection={<IconBrandGithub />}
+                onClick={() =>
+                    signIn("github", {
+                        callbackUrl: "/dashboard",
+                        redirect: true,
+                    })
+                }>
+                {"Login with Github"}
+            </Button>
+        </Paper>
     );
 }

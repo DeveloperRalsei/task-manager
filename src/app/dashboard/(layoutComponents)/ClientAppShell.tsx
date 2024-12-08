@@ -1,6 +1,6 @@
 "use client";
 
-import { AppShell, AppShellMain } from "@mantine/core";
+import { AppShell, AppShellMain, Container, Stack } from "@mantine/core";
 import { Session } from "next-auth";
 import DashboardWrapper from "./DashboardWrapper";
 import { useDisclosure } from "@mantine/hooks";
@@ -31,7 +31,11 @@ export default function Dashboard({
                     toggle,
                 }}
             />
-            <AppShellMain>{children}</AppShellMain>
+            <AppShellMain>
+                <Container size="md" my={"xl"}>
+                    <Stack w={"100%"}>{children}</Stack>
+                </Container>
+            </AppShellMain>
         </AppShell>
     );
 }

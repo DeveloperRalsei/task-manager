@@ -1,5 +1,12 @@
-import { Title } from "@mantine/core";
+"use client";
+
+import { Container, Title } from "@mantine/core";
+import Document from "./document.mdx";
 
 export default function Home() {
-    return <Title order={1}>Dashboard Home Page</Title>;
+    return (
+        <Container size="md" my={"xl"}>
+            <Document />
+        </Container>
+    );
 }

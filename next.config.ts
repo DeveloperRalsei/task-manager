@@ -1,4 +1,12 @@
 import type { NextConfig } from "next";
+import createMdx from "@next/mdx";
+
+const withMDX = createMdx({
+    extension: /\.mdx?$/,
+    options: {
+        remarkPlugins: [],
+    },
+});
 
 const nextConfig: NextConfig = {
     /* config options here */
@@ -14,6 +22,8 @@ const nextConfig: NextConfig = {
     eslint: {
         ignoreDuringBuilds: true,
     },
+
+    pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
 };
 
-export default nextConfig;
+export default withMDX(nextConfig);

@@ -7,7 +7,7 @@ import { signOut } from "next-auth/react";
 export function LogOutButton() {
     return (
         <ActionIcon
-            onClick={() => signOut({ callbackUrl: "/login" })}
+            onClick={() => signOut({ callbackUrl: "/login", redirect: true })}
             type="submit"
             variant="light"
             color="red">

@@ -9,33 +9,30 @@ import {
 
 export const NavLinks: navLink[] = [
     {
-        label: "Users",
+        label: "Projects",
         icon: <IconUsers />,
         children: [
             {
-                label: "Create",
-                icon: <IconPlus />,
-                href: "/dashboard/users/create",
-            },
-            {
                 label: "List",
-                href: "/dashboard/users",
+                href: "/dashboard/projects",
                 icon: <IconUser />,
             },
             {
+                label: "Create",
+                icon: <IconPlus />,
+                href: "/dashboard/projects/create",
+            },
+            {
                 label: "Delete",
-                href: "/dashboard/users/delete",
+                href: "/dashboard/projects/delete",
                 icon: <IconX />,
             },
         ],
-    },
-    {
-        label: "Projects",
-        href: "/dashboard/projects",
-        icon: <IconBook />,
     },
     {
         label: "Settings",
         icon: <IconPlus />,
     },
 ];
+
+export const GITHUB_ACCESS_TOKEN = process.env.GITHUB_ACCESS_TOKEN ?? "";
